@@ -211,9 +211,9 @@ int main(int argc, char const* argv[])
     char* output;
     size_t output_len;
     if (is_utf8)
-        output_len = sizeof(utf16_t) * utf8_to_utf16(input, input_len / sizeof(utf8_t), NULL, 0);
+        output_len = sizeof(utf16_t) * utf8_to_utf16((utf8_t*)input, input_len / sizeof(utf8_t), NULL, 0);
     else
-        output_len = sizeof(utf8_t) * utf16_to_utf8(input, input_len / sizeof(utf16_t), NULL, 0);
+        output_len = sizeof(utf8_t) * utf16_to_utf8((utf16_t*)input, input_len / sizeof(utf16_t), NULL, 0);
 
     output = malloc(output_len);
     if (output == NULL)
@@ -227,9 +227,9 @@ int main(int argc, char const* argv[])
     clock_t clock_start = clock();
 
     if (is_utf8)
-        utf8_to_utf16(input, input_len / sizeof(utf8_t), output, output_len / sizeof(utf16_t));
+        utf8_to_utf16((utf8_t*)input, input_len / sizeof(utf8_t), (utf16_t*)output, output_len / sizeof(utf16_t));
     else
-        utf16_to_utf8(input, input_len / sizeof(utf16_t), output, output_len / sizeof(utf8_t));
+        utf16_to_utf8((utf16_t*)input, input_len / sizeof(utf16_t), (utf8_t*)output, output_len / sizeof(utf8_t));
 
     time_t time_end = time(NULL);
     clock_t clock_end = clock();
